@@ -43,31 +43,31 @@
 </head>
 <body class="bg-white font-sans text-gray-900 overflow-x-hidden" x-data="{ showSearch: false, showMenu: false }" x-cloak>
     <!-- Navbar -->
-    <nav class="bg-white">
-        <div class="max-w-7xl mx-auto px-4 pt-6">
-            <div class="flex justify-between items-center h-16">
+    <nav class="bg-white relative z-50">
+        <div class="max-w-7xl mx-auto px-4 pt-4 md:pt-6">
+            <div class="flex justify-between items-center h-16 relative">
                 <!-- Left Nav: Search & Hamburger -->
-                <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-4 md:space-x-6">
                     <button @click="showSearch = true" class="text-gray-900 hover:text-brand transition">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
-                    <div class="h-6 w-px bg-gray-200"></div>
+                    <div class="h-5 md:h-6 w-px bg-gray-200"></div>
                     <button @click="showMenu = true" class="text-gray-900 hover:text-brand transition">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
                 
                 <!-- Center Logo -->
                 <div class="absolute left-1/2 transform -translate-x-1/2">
-                    <a href="/" class="flex items-center space-x-3 translate-x-[-15%] md:translate-x-0">
-                        <div class="bg-gray-100 p-2 rounded">
-                            <svg class="w-10 h-10 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <a href="/" class="flex items-center space-x-2 md:space-x-3">
+                        <div class="bg-gray-100 p-1.5 md:p-2 rounded hidden md:block">
+                            <svg class="w-6 h-6 md:w-10 md:h-10 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <rect x="3" y="4" width="18" height="16" rx="1"></rect>
                                 <path d="M7 8h10M7 12h10M7 16h5"></path>
                                 <path d="M14 15l1-1 4 4-1 1z" fill="currentColor"></path>
                             </svg>
                         </div>
-                        <span class="text-3xl font-bold font-serif tracking-tight uppercase text-gray-800">HOT NEWS</span>
+                        <span class="text-xl sm:text-2xl md:text-3xl font-bold font-serif tracking-tight uppercase text-gray-800 whitespace-nowrap">HOT NEWS</span>
                     </a>
                 </div>
 
@@ -76,23 +76,24 @@
                     @auth
                         <a href="{{ auth()->user()->role === 'ADMIN' ? route('admin.dashboard') : route('user.dashboard') }}" class="flex items-center space-x-2 group">
                             <svg class="w-6 h-6 text-gray-900 group-hover:text-brand transition" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                            <span class="text-sm font-bold text-gray-900 group-hover:text-brand transition">{{ auth()->user()->name }}</span>
+                            <span class="hidden md:block text-sm font-bold text-gray-900 group-hover:text-brand transition max-w-[120px] truncate">{{ auth()->user()->name }}</span>
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="flex items-center space-x-2 group">
                             <svg class="w-6 h-6 text-gray-900 group-hover:text-brand transition" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                            <span class="text-sm font-bold text-gray-900 group-hover:text-brand transition">Sign In</span>
+                            <span class="hidden md:block text-sm font-bold text-gray-900 group-hover:text-brand transition">Sign In</span>
                         </a>
                     @endauth
                 </div>
             </div>
 
             <!-- Secondary Nav -->
-            <div class="mt-8 border-b border-gray-50 pb-6 text-center">
-                <div class="flex justify-center flex-wrap gap-x-12 gap-y-4 text-[13px] font-medium text-gray-400">
-                    <a href="/" class="hover:text-gray-900 transition {{ request()->is('/') ? 'text-gray-900 font-bold' : '' }}">Beranda</a>
+            <div class="mt-4 md:mt-8 border-b border-gray-50 pb-4 md:pb-6 text-left">
+                <!-- Scrollable container on mobile, wrapped flex on desktop -->
+                <div class="flex items-center justify-start overflow-x-auto hide-scrollbar md:flex-wrap space-x-6 md:space-x-12 text-[13px] font-medium text-gray-400 pb-2 md:pb-0 scroll-smooth px-2 md:px-0">
+                    <a href="/" class="hover:text-gray-900 transition whitespace-nowrap flex-shrink-0 {{ request()->is('/') ? 'text-gray-900 font-bold' : '' }}">Beranda</a>
                     @foreach($globalCategories as $category)
-                        <a href="{{ route('category.show', $category->name) }}" class="hover:text-gray-900 transition {{ request()->is('kategori/'.$category->name) ? 'text-gray-900 font-bold' : '' }}">
+                        <a href="{{ route('category.show', $category->name) }}" class="hover:text-gray-900 transition whitespace-nowrap flex-shrink-0 {{ request()->is('kategori/'.$category->name) ? 'text-gray-900 font-bold' : '' }}">
                             {{ $category->name }}
                         </a>
                     @endforeach
@@ -129,7 +130,7 @@
                     <span class="text-3xl font-bold font-serif uppercase text-white tracking-widest">HOT NEWS</span>
                 </div>
                 <p class="text-white text-lg max-w-lg leading-relaxed antialiased">
-                    Portal berita yang selesu up to date setiap berita yang terbaru
+                    Portal berita yang selalu up to date setiap berita yang terbaru
                 </p>
             </div>
         </div>
