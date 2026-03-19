@@ -105,43 +105,43 @@
         </div>
     </section>
 
-    <!-- Breaking News -->
-    <section class="max-w-7xl mx-auto px-4 mt-20">
-        <div class="flex justify-between items-end mb-10">
-            <h2 class="text-5xl font-bold">Breaking News</h2>
-            <a href="#" class="text-2xl font-bold flex items-center hover:text-gray-600 transition">
-                See all <span class="ml-2">&rarr;</span>
-            </a>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            @foreach($breakingNews as $news)
-            <div class="group cursor-pointer">
-                <div class="aspect-[4/3] rounded-[32px] overflow-hidden mb-6">
-                    <img src="{{ $news->image }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                </div>
-                <!-- Metadata -->
-                <div class="flex items-center space-x-6 text-[11px] font-bold text-gray-900 uppercase mb-4">
-                    <span class="flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                        JAKARTA, INDONESIA
-                    </span>
-                    <span class="flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-                        {{ $news->created_at->format('d F Y') }}
-                    </span>
-                </div>
-                <h3 class="text-xl font-bold leading-tight mb-3 group-hover:text-gray-700 transition">
-                    {{ $news->title }}
-                </h3>
-                <p class="text-gray-600 text-[13px] leading-relaxed line-clamp-4">
-                    {{ Str::limit(strip_tags($news->content), 180) }}
-                </p>
+   <!-- Breaking News -->
+<section class="max-w-7xl mx-auto px-4 mt-20">
+    <div class="flex justify-between items-end mb-10">
+        <h2 class="text-5xl font-bold">Breaking News</h2>
+        <a href="#" class="text-2xl font-bold flex items-center hover:text-gray-600 transition">
+            See all <span class="ml-2">&rarr;</span>
+        </a>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        @foreach($breakingNews as $news)
+        {{-- ✅ Ganti <div> jadi <a> dengan route article.show --}}
+        <a href="{{ route('article.show', $news->slug) }}" class="group cursor-pointer block">
+            <div class="aspect-[4/3] rounded-[32px] overflow-hidden mb-6">
+                <img src="{{ $news->image }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
             </div>
-            @endforeach
-        </div>
-    </section>
-
+            <!-- Metadata -->
+            <div class="flex items-center space-x-6 text-[11px] font-bold text-gray-900 uppercase mb-4">
+                <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                    JAKARTA, INDONESIA
+                </span>
+                <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                    {{ $news->created_at->format('d F Y') }}
+                </span>
+            </div>
+            <h3 class="text-xl font-bold leading-tight mb-3 group-hover:text-gray-700 transition">
+                {{ $news->title }}
+            </h3>
+            <p class="text-gray-600 text-[13px] leading-relaxed line-clamp-4">
+                {{ Str::limit(strip_tags($news->content), 180) }}
+            </p>
+        </a>
+        @endforeach
+    </div>
+</section>
     <!-- Latest News -->
     <section class="max-w-7xl mx-auto px-4 mt-28 pb-32">
         <h2 class="text-5xl font-bold mb-12">Latest News</h2>
