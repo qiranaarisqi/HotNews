@@ -31,7 +31,7 @@
         </div>
 
         <div class="prose max-w-none text-gray-800 leading-relaxed font-sans first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:float-left first-letter:mr-3">
-            {!! nl2br(e($article->content)) !!}
+            {!! $article->content !!}
         </div>
 
         <div class="mt-12 pt-8 border-t border-gray-100">
