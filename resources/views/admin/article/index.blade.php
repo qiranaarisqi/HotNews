@@ -63,7 +63,11 @@
                 <td class="py-4 px-8">
                     <div class="w-20 h-14 rounded-xl overflow-hidden border border-gray-100">
                         @if($article->image)
-                            <img src="{{ $article->image }}" class="w-full h-full object-cover">
+                            @if(str_contains($article->image, 'http'))
+                                <img src="{{ $article->image }}" class="w-full h-full object-cover" alt="{{ $article->title }}">
+                            @else
+                                <img src="{{ asset($article->image) }}" class="w-full h-full object-cover" alt="{{ $article->title }}">
+                            @endif
                         @else
                             <div class="w-full h-full bg-gray-100 flex items-center justify-center">
                                 <i data-lucide="image" class="w-6 h-6 text-gray-300"></i>

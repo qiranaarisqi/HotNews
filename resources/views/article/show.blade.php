@@ -27,7 +27,11 @@
         </div>
 
         <div class="aspect-video rounded-sm overflow-hidden mb-8">
-            <img src="{{ $article->image }}" class="w-full h-full object-cover">
+            @if(str_contains($article->image, 'http'))
+                <img src="{{ $article->image }}" class="w-full h-full object-cover" alt="{{ $article->title }}">
+            @else
+                <img src="{{ asset($article->image) }}" class="w-full h-full object-cover" alt="{{ $article->title }}">
+            @endif
         </div>
 
         <div class="prose max-w-none text-gray-800 leading-relaxed font-sans first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:float-left first-letter:mr-3">

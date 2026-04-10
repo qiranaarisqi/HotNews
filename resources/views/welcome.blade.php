@@ -67,7 +67,11 @@
                 class="absolute inset-0"
                 style="display: none;"
             >
-                <img src="{{ $hero->image }}" alt="{{ $hero->title }}" class="w-full h-full object-cover pointer-events-none">
+                @if(str_contains($hero->image, 'http'))
+                    <img src="{{ $hero->image }}" alt="{{ $hero->title }}" class="w-full h-full object-cover pointer-events-none">
+                @else
+                    <img src="{{ asset($hero->image) }}" alt="{{ $hero->title }}" class="w-full h-full object-cover pointer-events-none">
+                @endif
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
                 
                 <div class="absolute top-8 right-8">
@@ -119,7 +123,11 @@
         {{-- ✅ Ganti <div> jadi <a> dengan route article.show --}}
         <a href="{{ route('article.show', $news->slug) }}" class="group cursor-pointer block">
             <div class="aspect-[4/3] rounded-[32px] overflow-hidden mb-6">
-                <img src="{{ $news->image }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                @if(str_contains($news->image, 'http'))
+                    <img src="{{ $news->image }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="{{ $news->title }}">
+                @else
+                    <img src="{{ asset($news->image) }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="{{ $news->title }}">
+                @endif
             </div>
             <!-- Metadata -->
             <div class="flex items-center space-x-6 text-[11px] font-bold text-gray-900 uppercase mb-4">
@@ -156,12 +164,20 @@
                     @foreach($gridItems as $index => $news)
                         @if($index < 2)
                             <div class="col-span-1 aspect-square rounded-[32px] overflow-hidden group relative">
-                                <img src="{{ $news->image }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                @if(str_contains($news->image, 'http'))
+                                    <img src="{{ $news->image }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="{{ $news->title }}">
+                                @else
+                                    <img src="{{ asset($news->image) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="{{ $news->title }}">
+                                @endif
                                 <a href="{{ route('article.show', $news->slug) }}" class="absolute inset-0"></a>
                             </div>
                         @else
                             <div class="col-span-2 aspect-video rounded-[32px] overflow-hidden group relative mt-4">
-                                <img src="{{ $news->image }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                @if(str_contains($news->image, 'http'))
+                                    <img src="{{ $news->image }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="{{ $news->title }}">
+                                @else
+                                    <img src="{{ asset($news->image) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="{{ $news->title }}">
+                                @endif
                                 <a href="{{ route('article.show', $news->slug) }}" class="absolute inset-0"></a>
                             </div>
                         @endif
@@ -178,7 +194,11 @@
                     @foreach($latestNewsList as $news)
                     <div class="flex items-center space-x-6 group cursor-pointer">
                         <div class="flex-shrink-0 w-32 h-20 rounded-[20px] overflow-hidden shadow-sm">
-                            <img src="{{ $news->image }}" class="w-full h-full object-cover">
+                            @if(str_contains($news->image, 'http'))
+                                <img src="{{ $news->image }}" class="w-full h-full object-cover" alt="{{ $news->title }}">
+                            @else
+                                <img src="{{ asset($news->image) }}" class="w-full h-full object-cover" alt="{{ $news->title }}">
+                            @endif
                         </div>
                         <div class="flex-grow">
                             <h5 class="text-lg font-bold leading-snug group-hover:text-gray-600 transition">

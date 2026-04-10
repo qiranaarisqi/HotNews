@@ -14,7 +14,11 @@
         <!-- Thumbnail -->
         <div class="h-48 overflow-hidden relative">
             @if($article->image)
-                <img src="{{ $article->image }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                @if(str_contains($article->image, 'http'))
+                    <img src="{{ $article->image }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="{{ $article->title }}">
+                @else
+                    <img src="{{ asset($article->image) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="{{ $article->title }}">
+                @endif
             @else
                 <div class="w-full h-full bg-gray-100 flex items-center justify-center">
                     <i data-lucide="image" class="w-8 h-8 text-gray-300"></i>

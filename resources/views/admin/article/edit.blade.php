@@ -141,9 +141,38 @@
         }
     });
 
-    document.getElementById('articleForm').onsubmit = function() {
-        document.getElementById('contentInput').value = quill.root.innerHTML;
-    };
+    // Set up form submission handler
+    const articleForm = document.getElementById('articleForm');
+    const submitButton = articleForm.querySelector('button[type="submit"]');
+    
+    articleForm.addEventListener('submit', function(e) {
+        console.log('Form submit triggered');
+        
+        // Transfer content from Quill editor to hidden input
+        const contentInput = document.getElementById('contentInput');
+        const editorContent = quill.root.innerHTML;
+        
+        console.log('Editor content:', editorContent);
+        console.log('Editor text:', quill.getText());
+        
+        // Check if content is empty
+        if (!editorContent || editorContent === '<p><br></p>' || quill.getText().trim() === '') {
+            e.preventDefault();
+            console.log('Content validation failed');
+            alert('Konten artikel tidak boleh kosong!');
+            return false;
+        }
+        
+        // Set content and disable button
+        contentInput.value = editorContent;
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i data-lucide="loader" class="w-5 h-5 animate-spin"></i><span>Menyimpan...</span>';
+        
+        console.log('Form data ready for submission');
+        console.log('Content value set:', contentInput.value.length > 0);
+        
+        return true;
+    });
 
     function previewImage(input) {
         if (input.files && input.files[0]) {
